@@ -1,0 +1,131 @@
+{% load static %}
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+    <head>
+        <title>Report Detail</title>
+        
+        <style type="text/css">
+            body {
+                font-weight: 200;
+                font-size: 14px;
+            }
+            .header {
+                font-size: 20px;
+                font-weight: 100;
+                text-align: center;
+                color: #7366FF;
+            }
+            .title {
+                font-size: 22px;
+                font-weight: 100;
+               /* text-align: right;*/
+               padding: 10px 20px 0px 20px;  
+            }
+            .title span {
+                color: #7366FF;
+            }
+            .details {
+                padding: 10px 20px 0px 20px;
+                text-align: left !important;
+                /*margin-left: 40%;*/
+            }
+            .hrItem {
+                border: none;
+                height: 1px;
+                /* Set the hr color */
+                color: #333; /* old IE */
+                background-color: #fff; /* Modern Browsers */
+            }
+            .form-control{
+                padding:6px;
+               
+                border-radius:100px;
+                display: flex;
+            
+                align-items: center;
+               
+            }
+          
+            h6{
+                margin-left:-25px;
+                color:#4a4c4f;
+            }
+        </style>
+    </head>
+    <body>
+        <div class='wrapper'>
+     
+            <div class='header'>
+
+                <table>
+                    <tr>
+                        <th></th>
+                        <th>Invoice Detail</span></th>
+                        <th> <span></span></th>
+                    </tr>
+                </table>
+
+                {% comment %} <img src ="https://portal.psmapp.com.au/media/logo/logogold_4g0gV0H.png" height="50"/> {% endcomment %}
+              
+            </div>
+        <div>
+        <div class='details'>
+            <hr>
+            <div>
+                <p><b>Doctor : </b>{{invoice.doctor}}  </p>
+                <p><b>Patient : </b>{{invoice.patient}} </p>
+            </div>
+            <hr>
+            <div id="form_info_div" data-json="{{building_report.form_data}}">
+               
+                    <div>
+                        <h6>Title :</h6>
+                        <div style=" border:1px solid #c1c4c9;">
+                        <div class="form-control">
+                           
+                        {{invoice.title}}</div></div>
+                    </div>
+                   
+                    <div>
+                        <h6>Date Created :</h6>
+                        <div style=" border:1px solid #c1c4c9;">
+                            <div class="form-control">
+                                {{invoice.date_created}}</div>
+                        </div>
+                      
+                    </div>
+                    <div>
+                        <h6>Price :</h6>
+                        <div style=" border:1px solid #c1c4c9;">
+                            <div class="form-control">
+                              Rs {{invoice.price}}</div>
+                        </div>
+                      
+                    </div>
+               
+                    <div>
+                        <h6>Payment Mode :</h6>
+                        <div style=" border:1px solid #c1c4c9;">
+                            <div class="form-control">
+                                {{invoice.payment_mode}}</div>
+                        </div>
+                      
+                    </div>
+                    <div>
+                        <h6>Payment Status :</h6>
+                        <div style=" border:1px solid #c1c4c9;">
+                            <div class="form-control">
+                                {{invoice.payment_stats}}</div>
+                        </div>
+                      
+                    </div>
+                   
+
+                   
+
+            </div>
+        </div>
+    </div>
+    </body>
+</html>

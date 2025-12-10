@@ -1,0 +1,135 @@
+{% extends 'index.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+        <div class="content-body">
+            <div class="warper container-fluid">
+                <div class="doctorino_settings main_container">
+                    <div class="row page-titles mx-0">
+                        <div class="col-sm-6 p-md-0">
+                            <div class="welcome-text">
+                                <h4 class="text-primary">Patient Settings</h4>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                                <li class="breadcrumb-item active"><a href="/doctor-settings.html">Patient Settings</a>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                    {% if messages %} {% for message in messages%}
+                    <div class="mt-3 alert alert-{{message.tags}} alert-dismissible fade show" role="alert">
+                      <strong></strong> {{message}}
+                      {% comment %} <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button> {% endcomment %}
+                    </div>
+                    {% endfor %} {% endif %}
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4 class="card-title">
+                                        <hr>
+                                        <a href="{% url 'doctor:user_history' user.id%}" class="mt-3 btn btn-primary w-auto">
+                                            {{user.first_name}}'s Medical History
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="basic-form">
+                                        <form id="edit_form" method="POST" enctype='multipart/form-data'>
+                                            {% csrf_token %}
+                                            <div class="row">
+                                                <div class="col-xl-4">
+                                                    <div class="form-group row widget-3">
+                                                        <div class="col-lg-10">
+                                                         
+                                                               
+                                                        <input
+                                                        type="file"
+                                                        data-default-file="{{request.user.get_image}}" 
+                                                        class="dropify"
+                                                        name="propic"
+                                                        data-height="180"
+                                                        {% if not can_edit %}disabled="true"{% endif %}
+                                                        />
+                                                    
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-4">
+
+                                                    
+                                                    <div class="form-group">
+                                                        {{form.first_name|as_crispy_field}}
+                                                    </div>
+                                                    <div class="form-group">
+                                                        {{form.last_name|as_crispy_field}}
+                                                    </div>
+                                                    <div class="form-group">
+                                                        {{form.email|as_crispy_field}}
+                                                    </div>
+                                                    <div class="form-group">
+                                                        {{form.mobile|as_crispy_field}}
+                                                    </div>
+                                                   
+                                                </div>
+                                                <div class="col-xl-4">
+                                                    <div class="form-group">
+                                                       
+                                                            {{form.address|as_crispy_field}}                                                        </div>
+                                                   
+                                                    <div class="form-group">
+                                                        {{form.sex|as_crispy_field}}
+                                                    </div>
+                                                    <div class="form-group">
+                                                        
+                                                    </div>
+                                                    <div class="form-group">
+                                                       {{form.blood_group|as_crispy_field}}
+                                                    </div>
+                                                    <div class="form-group">
+                                                        {{form.weight|as_crispy_field}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {% if request.user == user or request.user.is_admin  %}
+                                            <div class="row">
+                                                <div class="col-sm-11">
+                                                    <div class="form-group">
+                                                        <button type="submit" class="btn btn-primary float-end">Save</button></div>
+                                                </div>
+                                            </div>
+                                            {% endif %}
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End section content -->
+
+
+{% endblock %}
+{% block js %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://jeremyfagis.github.io/dropify/dist/js/dropify.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://jeremyfagis.github.io/dropify/dist/css/dropify.min.css">
+ <script>
+    $('.dropify').dropify();
+    const can_edit  = "{{can_edit}}"
+
+    if(can_edit==="False"){
+        $("#edit_form :input").prop("disabled", true);
+    }
+   
+ </script>
+{% endblock js %}

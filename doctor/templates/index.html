@@ -1,0 +1,189 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Health Care Platform{% endblock %}</title>
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" href="assets/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" href="{% static 'assets/images/favicon-32x32.png' %}">
+
+    <!-- Base Styling  -->
+   
+    <link href="{% static 'main/css/fonts.css' %}" rel="stylesheet">
+    <link href="{% static 'main/css/style.css' %}" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet"/>
+    <link rel="stylesheet type="text/css" href="https://jeremyfagis.github.io/dropify/dist/css/dropify.min.css"/>
+</head>
+
+<body>
+    <div id="main-wrapper" class="show">
+
+
+        <!-- start logo components -->
+        <div class="nav-header">
+            <div class="brand-logo">
+                <a href="{% url 'accounts:login' %}"><img class="brand-title" src="{% static 'images/Grace101.png' %}" alt=""></a>
+            </div>
+        </div>
+        <!-- End logo components -->
+
+        
+         <!-- start section sidebar -->
+         <aside class="left-panel nicescroll-box">
+            <nav class="navigation">
+                <ul class="list-unstyled main-menu">
+                    <li class="has-submenu active">
+                        <a href="{% url 'doctor:doctor-dashboard' %}">
+                            <i class="fas fa-th-large"></i>
+                            <span class="nav-label">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="has-submenu">
+                        <a href="#" class="has-arrow mm-collapsed">
+                            <i class="fas fa-users"></i>
+                            <span class="nav-label">Patients</span>
+                        </a>
+                        <ul class="list-unstyled mm-collapse">
+                            <li><a href="{% url 'doctor:all-patients' %}">All Patients</a></li>
+                        </ul>
+                    </li>
+                    <li class="has-submenu">
+                        <a href="{% url 'doctor:new-appointment' %}">
+                            <i class="fas fa-calendar-plus"></i>
+                            <span class="nav-label">Appointment</span>
+                        </a>
+                    </li>
+                    <li class="has-submenu">
+                        <a href="#" class="has-arrow mm-collapsed">
+                            <i class="fas fa-file-invoice"></i>
+                            <span class="nav-label">Billing</span>
+                        </a>
+                        <ul class="list-unstyled mm-collapse">
+                            <li><a href="{% url 'doctor:create-invoice'%}">Create Invoice</a></li>
+                            <li><a href="{% url 'doctor:billing-list' %}">Billing List</a></li>
+                        </ul>
+                    </li>
+                    <li class="has-submenu">
+                        <a href="#" class="has-arrow mm-collapsed">
+                            <i class="fas fa-cog"></i>
+                            <span class="nav-label">Settings</span>
+                        </a>
+                        <ul class="list-unstyled mm-collapse">
+                            <li><a href="{% url 'doctor:doctor-settings' request.user.id %}">Doctor Settings</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+        <!-- End section sidebar -->
+
+        <!-- start section header -->
+        <div class="header">
+            <header class="top-head container-fluid">
+                <div class="nav-control">
+                    <div class="hamburger">
+                        <span class="line"></span><span class="line"></span><span class="line"></span>
+                    </div>
+                </div>
+                <div class="header-right">
+                    <form method="get" action="{% url 'doctor:searchpatient' %}" id="search-form">
+                        <div class="input-group rounded">
+                            <input type="search" name="search1" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" style="height: 34px;" />
+                            <span class="input-group-text border-0" id="search-addon">
+                              <i class="fas fa-search "></i>
+                            </span>
+                        </div>
+                    </form>
+                    <div class="my-account-wrapper">
+                        <div class="account-wrapper">
+                            <div class="account-control">
+                                <a class="login header-profile" href="#" title="Sign in">
+                                    <div class="header-info">
+                                        <span>{{request.user.first_name}}</span>
+                                    </div>
+                                    {% if request.user.profile_pic %}
+    <img src="{{request.user.get_image}}" style="object-fit:cover" alt="people">
+{% else %}
+    <div style="background:#333;color:white;padding:4px;width:30px;border-radius:50%;display:grid;place-items:center;">{{request.user.first_name.0|title}}</div>
+{% endif %}
+                           </a>
+                                <div class="account-dropdown-form dropdown-container">
+                                    <div class="form-content">
+                                        {% if request.user.is_patient %}
+                                        <a href="{% url 'Management_system:patient-settings' request.user.id %}">
+                                            <i class="far fa-user"></i>
+                                            <span class="ml-2">Profile</span>
+                                        </a>
+                                     {% elif request.user.is_doctor %}
+                                        <a href="{% url 'doctor:doctor-settings' request.user.id %}">
+                                            <i class="far fa-user"></i>
+                                            <span class="ml-2">Profile</span>
+                                        </a>
+                                        {% endif %}
+                                        <a href="{% url 'accounts:logout' %}">
+                                            <i class="fas fa-sign-in-alt"></i>
+                                            <span class="ml-2">Logout </span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+        </div>
+
+
+                {% block content %}
+                {% endblock %}
+
+        <div class="footer">
+            <div class="copyright">
+                <p class="mb-0"> <a href="uxign.com" target="_blank">Health Care Platform</a> 2024
+                </p>
+            </div>
+        </div>
+    </div>
+
+    
+    <!-- JQuery v3.5.1 -->
+    <script src="{% static 'plugins/jquery/jquery.min.js' %}"></script>
+
+    <!-- popper js -->
+    <script src="{% static 'plugins/popper/popper.min.js' %}"></script>
+
+    <!-- Bootstrap -->
+    <script src="{% static 'plugins/bootstrap/js/bootstrap.js' %}"></script>
+
+    <!-- Moment -->
+    <script src="{% static 'plugins/moment/moment.min.js' %}"></script>
+
+    <!-- Date Range Picker -->
+    <script src="{% static 'plugins/daterangepicker/daterangepicker.min.js' %}"></script>
+    {% comment %} <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script> {% endcomment %}
+
+    <!-- Datatable -->
+    <script src="{% static 'plugins/datatables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'js/init-tdatatable.js' %}"></script>
+
+    <!-- Chart js -->
+    <script src="{% static 'plugins/chart/chart/Chart.min.js' %}"></script>
+    <script src="{% static 'js/charts-custom.js' %}"></script>
+
+    <!-- Main Custom JQuery -->
+    <script src="{% static 'js/toggleFullScreen.js' %}"></script>
+    <script
+  type="text/javascript"
+  src="https://jeremyfagis.github.io/dropify/dist/js/dropify.min.js"
+></script>
+<script src="{% static 'js/doc_settings.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+  
+    {% block js %}{% endblock js %}
+
+</body>
+</html>

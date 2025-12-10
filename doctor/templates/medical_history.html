@@ -1,0 +1,64 @@
+{% extends 'Base.html' %}
+{% load static %}
+{% block content %}
+
+         <!-- start section content -->
+         <div class="content-body">
+            <div class="warper container-fluid">
+                <div class="row page-titles mx-0">
+                </div>
+                <div class="new-patients main_container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card shadow">
+                                <div class="card-header">
+                                    <h4 class="card-title">{{user.first_name}}'s Medical History</h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table id="example1" class="display nowrap">
+                                            <thead>
+                                                <tr>
+                                                    <th>S.N</th> 
+                                                    <th> Disease Name</th>
+                                                    <th>Medicine</th>
+                                                    <th>Doctor Name</th>
+                                                    <th> Last Checkup</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for li in histories %}
+                                                <tr>
+                                                    <td> {{forloop.counter}} </td>
+                                                    <td> {{li.disease_name}} </td>
+                                                    <td>{{li.medicine}}</td>
+                                                    <td> {{li.doctor_name}} </td>
+                                                    <td> {{li.last_checkup|timesince}} ago </td>
+                                                    <td>
+                                                        <a class='mr-4 vue'>
+                                                            {% if request.user.is_doctor %}
+                                                            <a href="{% url 'doctor:user_history_detail' user.id li.id  %}"><span class='fa fa-eye' aria-hidden='true'></span></a>
+                                                        {% else %}
+                                                        <a href="{% url 'Management_system:user_history_details' request.user.id   %}"><span class='fa fa-eye' aria-hidden='true'></span></a>
+                                                            {% endif %}
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                                {% endfor %}
+                                              
+                                                
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End section content -->
+
+
+{% endblock %}       

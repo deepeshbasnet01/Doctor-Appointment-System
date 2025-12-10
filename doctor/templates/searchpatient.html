@@ -1,0 +1,118 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block content %}
+        <!-- start section content -->
+        <div class="content-body">
+            <div class="warper container-fluid">
+                <div class="all-patients main_container">
+                    <div class="row page-titles mx-0">
+                        <div class="col-sm-6 p-md-0">
+                            <div class="welcome-text">
+                                
+                            </div>
+                        </div>
+                        <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                                <li class="breadcrumb-item active"><a href="new-patient.html">All Patients</a></li>
+                            </ol>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-header fix-card">
+                                    <div class="row">
+                                        <div class="col-8">
+                                            <h4 class="card-title"> All Patients </h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table id="example1" class="display nowrap">
+                                            <thead>
+                                                <tr>
+                                                    <th>S.N</th>
+                                                    <th>Full Name</th>
+                                                    <th>Email</th>
+                                                    <th>Mobile No.</th>
+                                                    <th>Sex</th>
+                                                    <th>Blood Group</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for li in results %}
+                                                <tr>
+                                                    <td> {{forloop.counter}} </td>
+                                                    <td> {{li}} </td>
+                                                    <td>{{li.email|default_if_none:"N/A"}}</td>
+                                                    <td> {{li.mobile|default_if_none:"N/A"}} </td>
+                                                    <td> {{li.sex|default_if_none:"N/A"}} </td>
+                                                    <td>{{li.blood_group|default_if_none:"N/A"}}</td>
+                                                    <td>
+                                                    <a class='mr-4 vue'>
+                                                        <a href="{% url 'doctor:patient-settings' li.id %}"><span class='fa fa-eye' aria-hidden='true'></span></a>
+                                                    </a>
+                                                    </td>
+                                                </tr>
+                                                {% endfor %}
+                                           
+                                              
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        ...
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End section content -->
+
+
+    <!-- Show data patient -->
+    <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
+        <!-- <div > -->
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="myModalLabel"><img class="rounded-circle" width="35" src="assets/images/patients/user1.jpg" alt=""> Tiger Nixon </h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="insertHere"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Show data patient -->
+
+
+{% endblock %}

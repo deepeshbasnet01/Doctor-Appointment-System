@@ -1,0 +1,98 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Health Care Platform{% endblock %}</title>
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" href="assets/images/favicon-32x32.png">
+    <!-- Base Styling  -->
+    <link href="{% static 'main/css/fonts.css' %}" rel="stylesheet">
+    <link href="{% static 'main/css/style.css' %}" rel="stylesheet">
+</head>
+<body>
+    <div id="main-wrapper" class="show">
+
+        <div class="login-tabib">
+            <div>
+                <div class="text-center">
+                    <a class="logo" href="index.html">
+                        <img class="img-fluid" src="{% static 'images/Grace101.png' %}" alt="loogin page">
+                    </a>
+                </div>
+                <div class="login-main">
+                    {% if messages %} {% for message in messages%}
+                    <div class="mt-3 alert alert-danger alert-dismissible fade show" role="alert">
+                      <strong></strong> {{message}}
+                      
+                    </div>
+                    {% endfor %} {% endif %}
+                    <form id="updateform" class="theme-form" action="" method="POST">
+                        {% csrf_token %}
+                        <h4>Add User Role </h4>
+                        <div class="form-group m-b-10">
+                            <p>Hello ,<strong> {{request.user }}</strong> Please Enter what you want to sign up with
+                            <div  class="form-input position-relative">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="usertypeoptions"  id="inlineRadio1" value="doctor">
+                                    <label class="form-check-label" for="inlineRadio1">Doctor</label>
+                                  </div>
+                                  <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="usertypeoptions" id="inlineRadio2" value="patient">
+                                    <label class="form-check-label" for="inlineRadio2">Patient</label>
+                                  </div>
+                                 <div id="lice" class="">
+                                    <label >License Number :</label>
+                                    <input id="licenseid" name="license" placeholder ="NPXXXXXXXX" type="text" class="mt-2 form-control">
+                                 </div>
+                                 <div class="form-group mb-0">
+                                    <div class="mt-3">
+                                        <button onclick="updateinfo()" type="submit" class="btn btn-primary w-100">Update Info</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+             
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+   
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script>
+    $("#lice").hide()
+    var radioval=null;
+    var lice_len =$("#licenseid").val()
+    function updateinfo(){
+        if(radioval==null){
+            alert("please check at least one role !")
+        }
+      
+        else{
+           return $("#updateform").submit()
+        }
+    }
+
+    $('input[type=radio][name=usertypeoptions]').change(function() {
+        radioval=this.value
+        if (this.value == 'doctor') {
+
+            $("#lice").show()
+        }
+        else{
+            $("#lice").hide()
+        }
+       
+    });
+</script>
+</body>
+
+</html>

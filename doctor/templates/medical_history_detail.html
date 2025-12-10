@@ -1,0 +1,79 @@
+{% extends 'index.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+        <div class="content-body">
+            <div class="warper container-fluid">
+                <div class="main_container">
+<div class="row page-titles mx-0">
+    <div class="col-sm-6 p-md-0">
+        <div class="welcome-text">
+            <h4 class="text-primary">Doctor Profile</h4>
+        </div>
+    </div>
+    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            {% comment %} <li class="breadcrumb-item active"><a href="/doctor-profile.html">Doctor Profile</a> {% endcomment %}
+            </li>
+        </ol>
+    </div>
+</div>
+<div class="col-lg-12">
+    <div class="doctor-info-content">
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                <div class="card m-t-30">
+                    <div class="card-body">
+                  <div class="row">
+                      <div class="col-lg-6">
+                        <p><strong>Patient :</strong> {{history.patient}}</p>
+                        <p><strong>Doctor  :</strong> {{history.doctor_name}}</p>
+                        <p><strong>Disease Name :</strong> {{history.disease_name}}</p>
+             
+                      </div>
+                      <div class="col-lg-6">
+                        <p><strong>Last Check Up :</strong> {{history.last_checkup}}</p>
+                        <p><strong>description :</strong> {{history.description}}</p>
+                      </div>
+                  </div>
+                  <div class="div">
+                      <strong>Related Files :</strong>  </br>
+                      <div class="row">
+                        
+                            {% for i  in files %}
+                            <div class="col-lg-5 m-3"
+                            style="
+                            background:#333;
+                            padding:8px 15px;
+                            border-radius:2px;
+                            margin-top:10px;
+                            "
+                            >
+                                <a 
+                                data-fancybox="gallery" 
+                                target="blank"
+                               
+                                class="my-3"
+                                href="{{i.documents.url}}">{{i.filename}}</a>
+                            </div>  {% endfor %}
+                                   
+                      </div>
+                      
+                  </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>  
+</div>
+</div>
+</div>
+{% endblock content %}
+{% block js %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.css" integrity="sha512-nNlU0WK2QfKsuEmdcTwkeh+lhGs6uyOxuUs+n+0oXSYDok5qy0EI0lt01ZynHq6+p/tbgpZ7P+yUb+r71wqdXg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.js" integrity="sha512-j7/1CJweOskkQiS5RD9W8zhEG9D9vpgByNGxPIqkO5KrXrwyDAroM9aQ9w8J7oRqwxGyz429hPVk/zR6IOMtSA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+{% endblock js %}

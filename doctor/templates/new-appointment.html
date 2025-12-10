@@ -1,0 +1,66 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block content %}
+        <!-- start section content -->
+        <div class="content-body">
+            <div class="warper container-fluid">
+                <div class="new_appointment main_container">
+                    <div class="row page-titles mx-0">
+                        <div class="col-sm-6 p-md-0">
+                            <div class="welcome-text">
+                                <h4 class="text-primary"> Appointment</h4>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                                <li class="breadcrumb-item active"><a href="/new-appointment.html">New Appointment</a>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card shadow">
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table id="example3" class="display nowrap">
+                                            <thead>
+                                                <tr>
+                                                    <th>Time</th>
+                                                    <th>Date</th>
+                                                    <th>Patient</th>
+                                                    <th>Status</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for li in appointments %}
+                                                <tr>
+                                                    <td> {{li.appointment_time}} </td>
+                                                    <td> {{li.appointment_date}} </td>
+                                                    <td> {{li.patient}}</td>
+                                          
+                                                    <td class="text-start">
+                                                        <span class="badge badge-primary">{{li.status}}</span>
+                                                    </td>
+                                                    <td>
+                                                        <a href="{% url 'doctor:appointment-detail' li.id %}" class='edit' >
+                                                            <span class='fas fa-eye'></span>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+     
+
+{% endblock %}
